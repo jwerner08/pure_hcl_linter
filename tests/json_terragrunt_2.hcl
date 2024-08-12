@@ -1,5 +1,5 @@
 terraform {
-  source = "relatvie/path/to/terraform"
+  source = "relative/path/to/terraform"
 }
 
 include {
