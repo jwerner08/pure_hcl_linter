@@ -53,10 +53,10 @@ func isJSON(content []byte) bool {
 	return gjson.ValidBytes(content)
 }
 
-// hasMisusedColons checks for colon usage in key-value pairs outside of strings or URLs.
+// hasMisusedColons checks for colon usage in key-value pairs outside of strings, URLs, or comments.
 func hasMisusedColons(content string) bool {
-	// Regex to match colons in key-value pairs that are not inside strings, URLs, or within valid HCL lists/maps.
-	re := regexp.MustCompile(`(?m)^\s*[a-zA-Z0-9_-]+\s*:\s*[^"]`)
+	// Regex to match colons in key-value pairs that are not inside strings, URLs, or comments.
+	re := regexp.MustCompile(`(?m)^[^#"\n]*\b[a-zA-Z0-9_-]+\s*:\s*[^{\[].*`)
 
 	// Find all matches in the content.
 	matches := re.FindAllString(content, -1)
@@ -91,7 +91,7 @@ func checkFileFormat(filename string) string {
 
 func main() {
 	// Define the directory where the terragrunt files are located.
-	dir := "infra"
+	dir := "tests"
 	hclFiles, err := getHCLFiles(dir)
 	if err != nil {
 		log.Fatalf("Failed to get files with `.hcl` extension: %v", err)
