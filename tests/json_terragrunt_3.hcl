@@ -1,5 +1,5 @@
 terraform {
-  source = "relatvie/path/to/terraform"
+  source = "relative/path/to/terraform"
 }
 
 dependency {
@@ -17,7 +17,7 @@ locals {
 }
 
 inputs = {
-  var_1 = "REDACTED"
+  var_1 = "This file is littered with JSON-like sytnax."
   var_2 : dependency.some_terragrunt_file.outputs.some_var
   var_3 = [
     for num in local.local_var :
